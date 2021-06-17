@@ -2,15 +2,12 @@ const { response } = require("express");
 const express = require("express");
 const logger = require("morgan");
 
-
 const server = express();
 
 const port = 5000;
 
-
 server.use(logger("dev"));
-server.use(express.json())
-
+server.use(express.json());
 
 server.get("/*", (req, res) => {
   res.send("This is my first USSD Application");
@@ -25,7 +22,7 @@ server.post("/*", (req, res) => {
     const response = `CON What do you want to check 
         1. My Account
         2. My phone number`;
-      res.send(response)
+    res.send(response);
   } else {
     //My logic for first level response
     if (text === 1) {
@@ -55,7 +52,7 @@ server.post("/*", (req, res) => {
             const response = `END Your Account Balance is ${accountBalance}`;
             res.send(response);
           } else {
-              res.status(400).send('Bad Request')
+            res.status(400).send("Bad Request");
           }
         }
       }
@@ -63,4 +60,6 @@ server.post("/*", (req, res) => {
   }
 });
 
-server.listen(process.env.PORT||5000, () => console.log(`Server is running on port ${port}`));
+server.listen(process.env.PORT || 5000, () =>
+  console.log(`Server is running on port ${port}`)
+);
